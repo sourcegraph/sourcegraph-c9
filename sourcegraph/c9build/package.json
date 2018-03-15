@@ -1,0 +1,20 @@
+{
+  "name": "sourcegraph",
+  "version": "0.0.1",
+  "author": "Sourcegraph",
+  "contributors": [
+    {
+      "name": "Matt King",
+      "email": "king@sourcegraph.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "plugins": {
+    "sourcegraph": {}
+  },
+  "categories": ["miscellaneous"],
+  "licenses": []
+}
