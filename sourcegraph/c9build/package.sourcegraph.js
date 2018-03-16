@@ -1,5 +1,6 @@
 define("plugins/sourcegraph/package.sourcegraph", [], {
     "name": "sourcegraph",
+    "description": "Sourcegraph for C9",
     "version": "0.0.1",
     "author": "Sourcegraph",
     "contributors": [
@@ -10,12 +11,15 @@ define("plugins/sourcegraph/package.sourcegraph", [], {
     ],
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/sourcegraph/sourcegraph-c9"
+    },
+    "engines": {
+        "c9": ">=3.0.0"
     },
     "categories": [
         "miscellaneous"
     ],
-    "licenses": [],
+    "license": "MIT",
     "c9": {
         "plugins": [
             {

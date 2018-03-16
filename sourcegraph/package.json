@@ -1,5 +1,6 @@
 {
   "name": "sourcegraph",
+  "description": "Sourcegraph for C9",
   "version": "0.0.1",
   "author": "Sourcegraph",
   "contributors": [
@@ -10,11 +11,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/sourcegraph/sourcegraph-c9"
   },
   "plugins": {
     "sourcegraph": {}
   },
+  "engines": {
+    "c9": ">=3.0.0"
+  },
   "categories": ["miscellaneous"],
-  "licenses": []
+  "license": "MIT"
 }
