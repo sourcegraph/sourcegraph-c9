@@ -13,7 +13,7 @@ if (services.c9.workspaceId.match("{username}/{workspacename}")) {
     // call plugin manager with a list of plugins you want to load
     // this takes either url, or a path on your vm
     services.pluginManager.loadPackage([
-        "https://cdn.rawgit.com/sourcegraph/sourcegraph-c9/v0.0.1/sourcegraph/c9build/package.sourcegraph.js",
+        "https://cdn.rawgit.com/sourcegraph/sourcegraph-c9/v0.0.2/sourcegraph/c9build/package.sourcegraph.js",
     ])
 }
 ```
