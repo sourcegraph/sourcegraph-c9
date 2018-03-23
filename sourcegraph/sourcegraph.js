@@ -17,8 +17,10 @@ define(function(require, exports, module) {
     var settings = imports.settings
     var prefs = imports.preferences
     var proc = imports.proc
+    var environmentDir = imports.c9.environmentDir
     var workspaceDir = imports.c9.workspaceDir
     var tabs = imports.tabManager
+    var dirname = require('path').dirname
     var VERSION = '0.0.1'
 
     /***** Initialization *****/
@@ -196,13 +198,17 @@ define(function(require, exports, module) {
     }
 
     function git(args, callback) {
-      if (typeof args == 'string') args = args.split(/\s+/)
+      var tab = tabs.focussedTab
+      var filePath = tab && tab.path
+      var baseDir = environmentDir || workspaceDir
+      var dirPath = dirname(baseDir + filePath)
 
+      if (typeof args == 'string') args = args.split(/\s+/)
       proc.spawn(
         'git',
         {
           args: args,
-          cwd: workspaceDir
+          cwd: dirPath
         },
         function(e, p) {
           buffer(p, function(stdout, stderr) {
