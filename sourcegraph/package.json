@@ -1,7 +1,7 @@
 {
   "name": "sourcegraph",
   "description": "Sourcegraph for C9",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Sourcegraph",
   "contributors": [
     {
