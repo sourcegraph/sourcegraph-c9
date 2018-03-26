@@ -21,7 +21,7 @@ define(function(require, exports, module) {
     var workspaceDir = imports.c9.workspaceDir
     var tabs = imports.tabManager
     var dirname = require('path').dirname
-    var VERSION = '0.0.1'
+    var VERSION = '0.0.3'
 
     /***** Initialization *****/
 
@@ -160,23 +160,37 @@ define(function(require, exports, module) {
     function repoInfo(callback) {
       getRemote(function(err, remotes) {
         if (err) {
+          logError("Unable to resolve getRemote", err)
           return
         }
         var remote = remotes[0]
         gitRemoteUrl(remote, function(err, remoteUrl) {
           if (err) {
+            logError("Unable to resolve gitRemoteUrl", err)
             return
           }
           getBranch(function(err, branch) {
             if (err) {
+              logError("Unable to resolve getBranch", err)
               return
             }
-            var tab = tabs.focussedTab
-            var filePath = tab && tab.path
-            callback({
-              remote: remoteUrl,
-              branch: branch,
-              file: filePath
+            getTopLevel(function(err, topLevel) {
+              if (err) {
+                logError("Unable to resolve getTopLevel", err)
+                return
+              }
+              var tab = tabs.focussedTab
+              if (!tab || !tab.path) {
+                logError("Unable to resolve file path", "No tab found.")
+                return
+              }
+
+              var filePath = `${environmentDir || workspaceDir}${tab.path}`.replace(topLevel, '')
+              callback({
+                remote: remoteUrl,
+                branch: branch,
+                file: filePath
+              })
             })
           })
         })
@@ -225,6 +239,13 @@ define(function(require, exports, module) {
       })
     }
 
+    function getTopLevel(callback) {
+      git(['rev-parse', '--show-toplevel'], function(err, stdout, stderr) {
+        if (err || stderr) return callback(err || stderr)
+        callback(null, stdout.trim())
+      })
+    }
+
     function getRemote(callback) {
       git(['remote'], function(err, stdout, stderr) {
         if (err || stderr) return callback(err || stderr)
@@ -264,6 +285,10 @@ define(function(require, exports, module) {
         cursor = selection.start
       }
       return { cursor, anchor }
+    }
+
+    function logError(messsage, err) {
+      console.error(`${message}: ${err}\n EnvDir: ${environmentDir}, WorkspaceDir: ${workspaceDir}`)
     }
 
     /***** Lifecycle *****/
